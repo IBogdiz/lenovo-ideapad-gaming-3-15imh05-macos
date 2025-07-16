@@ -1,0 +1,28 @@
+
+DefinitionBlock ("", "SSDT", 2, "CORP", "PLUG", 0x00000000)
+{
+    External (_SB_.CP00, DeviceObj)
+    Scope (_SB.CP00)
+    {
+        Method (_INI, 0, NotSerialized)
+        {
+            Store ("SSDT-PLUG injected at 2025-07-14T18:39:24.475531", Debug)
+        }
+
+        Name (_PRW, Package (0x02)
+        {
+            0x0D,
+            0x05
+        })
+
+        Method (_DSM, 4, NotSerialized)
+        {
+            If (LEqual (Arg2, Zero)) { Return (Buffer (One) { 0x03 }) }
+            Return (Package ()
+            {
+                "plugin-type", 
+                One
+            })
+        }
+    }
+}
